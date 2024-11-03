@@ -82,7 +82,10 @@ require('lazy').setup({
 	}
 }
 })
+
+vim.opt.number = true
 vim.opt.relativenumber = true
+
 vim.diagnostic.config({
   update_in_insert = true,   -- Enables diagnostics updates in insert mode
   underline = true,
@@ -93,8 +96,15 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
     -- Delay in milliseconds
     update_in_insert = true,
-    debounce = 150,
+    debounce = 1000,
   }
 )
 
 vim.api.nvim_set_hl(0, 'PmenuBorder', { fg = 'white' })
+
+-- Create a command to open NeoTree and a tmux pane
+vim.api.nvim_create_user_command('Code', function()
+  vim.cmd('Neotree')
+  os.execute('tmux split-window -v -p 10')
+end, {})
+

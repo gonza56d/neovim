@@ -33,9 +33,56 @@ require('lazy').setup({
 		]])
 	end
 },
-'neovim/nvim-lspconfig',
+  {
+    'neovim/nvim-lspconfig',
+    config = function()
+      require('lspconfig').pyright.setup{}
+    end,
+  },
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      'hrsh7th/cmp-nvim-lsp',  -- LSP completion source
+      'hrsh7th/cmp-buffer',     -- Buffer completion source
+    },
+    config = function()
+      local cmp = require'cmp'
+      cmp.setup({
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+        },
+        mapping = {
+          ['<Tab>'] = cmp.mapping.select_next_item(),
+          ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        },
+      })
+    end,
+  },
 'ibhagwan/fzf-lua',
+{
+	'nvim-neo-tree/neo-tree.nvim',
+        branch = "v3.x",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+	        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+		"MunifTanjim/nui.nvim",
+		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+	}
+}
 })
-
-require'lspconfig'.pyright.setup{}
-
+vim.opt.relativenumber = true
+vim.diagnostic.config({
+  update_in_insert = true,   -- Enables diagnostics updates in insert mode
+  underline = true,
+  virtual_text = true,
+  signs = true,
+})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    -- Delay in milliseconds
+    update_in_insert = true,
+    debounce = 150,
+  }
+)

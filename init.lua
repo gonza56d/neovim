@@ -48,6 +48,16 @@ require('lazy').setup({
     config = function()
       local cmp = require'cmp'
       cmp.setup({
+	window = {
+		completion = cmp.config.window.bordered({
+			border = 'rounded',
+			winhighlight = 'Normal:Pmenu,FloatBorder:PmenuBorder',
+		}),
+		documentation = cmp.config.window.bordered({
+			border = 'rounded',
+			winhighlight = 'Normal:Pmenu,FloatBorder:PmenuBorder',
+		}),
+	},
         sources = {
           { name = 'nvim_lsp' },
           { name = 'buffer' },
@@ -86,3 +96,5 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     debounce = 150,
   }
 )
+
+vim.api.nvim_set_hl(0, 'PmenuBorder', { fg = 'white' })

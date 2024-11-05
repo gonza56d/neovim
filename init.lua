@@ -108,3 +108,4 @@ vim.api.nvim_create_user_command('Code', function()
   os.execute('tmux split-window -v -p 10')
 end, {})
 
+vim.opt.scrolloff = 9999999

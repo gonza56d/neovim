@@ -112,4 +112,9 @@ end, {})
 vim.opt.scrolloff = 9999999
 vim.opt.cursorline = true
 vim.cmd("highlight CursorLine ctermbg=236 guibg=#2e3440")
-
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.py",
+    callback = function()
+        vim.cmd([[ %s/\s\+$//e ]])
+    end,
+})

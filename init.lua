@@ -33,7 +33,22 @@ require('lazy').setup({
 		]])
 	end
 },
-  {
+{
+	'Yggdroot/indentLine', config = function()
+    	vim.g.indentLine_enabled = 1
+    	vim.g.indentLine_char = '|'
+    	vim.g.indentLine_color_term = 256
+  	end
+},
+{
+    "ojroques/nvim-osc52",
+    config = function()
+        require("osc52").setup({})
+        -- Automatically copy visually selected text to clipboard
+        vim.api.nvim_set_keymap("v", "<C-c>", ":lua require('osc52').copy_visual()<CR>", { noremap = true, silent = true })
+    end,
+},
+{
     'neovim/nvim-lspconfig',
     config = function()
       require('lspconfig').pyright.setup{}
@@ -80,6 +95,25 @@ require('lazy').setup({
 		"MunifTanjim/nui.nvim",
 		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
 	}
+},
+{
+    'windwp/nvim-autopairs',
+    config = function()
+        require('nvim-autopairs').setup({
+            check_ts = true,  -- Use Treesitter for better context
+        })
+    end,
+},
+{
+    'nvim-treesitter/nvim-treesitter',
+    build = ':TSUpdate',
+    config = function()
+        require('nvim-treesitter.configs').setup({
+            ensure_installed = { "python" },
+            highlight = { enable = true },
+            indent = { enable = true },  -- Enable automatic indentation
+        })
+    end,
 }
 })
 
@@ -118,3 +152,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.cmd([[ %s/\s\+$//e ]])
     end,
 })
+-- my custom aliases
+vim.api.nvim_create_user_command('Nt', 'Neotree', {})
+

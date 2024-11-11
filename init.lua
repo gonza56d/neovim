@@ -27,12 +27,12 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require('lazy').setup({
 {
-	"scottmckendry/cyberdream.nvim",
+	"rakr/vim-one",
 	lazy = false,
 	priority = 1000,
 	config = function()
 		vim.cmd([[
-		colorscheme cyberdream
+		colorscheme one
 		]])
 	end
 },

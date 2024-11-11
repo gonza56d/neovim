@@ -27,12 +27,15 @@ vim.g.maplocalleader = "\\"
 -- Setup lazy.nvim
 require('lazy').setup({
 {
-	"rakr/vim-one",
+	"xiantang/darcula-dark.nvim",
+    	dependencies = {
+        	"nvim-treesitter/nvim-treesitter",
+    	},
 	lazy = false,
 	priority = 1000,
 	config = function()
 		vim.cmd([[
-		colorscheme one
+		colorscheme darcula-dark
 		]])
 	end
 },

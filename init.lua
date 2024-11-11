@@ -91,7 +91,22 @@ require('lazy').setup({
       })
     end,
   },
-'ibhagwan/fzf-lua',
+{
+  'ibhagwan/fzf-lua',
+  config = function()
+    require('fzf-lua').setup({
+      fzf_opts = {
+        ['--preview'] = 'cat {}',  -- Set the preview command (optional)
+      },
+      files = {
+        cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'"  -- Use ripgrep (rg) to find files
+      },
+      git_files = {
+        cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'"  -- Use ripgrep (rg) for git files
+      }
+    })
+  end
+},
 {
 	'nvim-neo-tree/neo-tree.nvim',
         branch = "v3.x",

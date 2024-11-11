@@ -1,6 +1,3 @@
--- LEADER KEY 
-vim.g.mapleader = ","
-
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -21,8 +18,7 @@ vim.g.python3_host_pro = "/Library/Frameworks/Python.framework/Versions/3.12/bin
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
+vim.g.mapleader = ","
 
 -- Setup lazy.nvim
 require('lazy').setup({
@@ -38,6 +34,11 @@ require('lazy').setup({
 		colorscheme darcula-dark
 		]])
 	end
+},
+{
+	'rakr/vim-one',
+	lazy = false,
+	priority = 1000,
 },
 {
 	'Yggdroot/indentLine', config = function()
@@ -182,6 +183,22 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.cmd([[ %s/\s\+$//e ]])
     end,
 })
+
+-- toggle between light and dark themes
+local current_theme = 'darcula'
+function ToggleTheme()
+	if current_theme == 'darcula' then
+		vim.cmd('colorscheme one')
+		vim.o.background = 'light'
+		current_theme = 'one'
+	else
+		vim.cmd('colorscheme darcula-dark')
+		vim.o.background = 'dark'
+		current_theme = 'darcula'
+	end
+end
+vim.api.nvim_set_keymap('n', '<leader>tt', ':lua ToggleTheme()<CR>', { noremap = true, silent = true })
+
 -- my custom aliases
 vim.api.nvim_create_user_command('Nt', 'Neotree', {})
 vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })

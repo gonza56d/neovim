@@ -199,8 +199,14 @@ function ToggleTheme()
 end
 vim.api.nvim_set_keymap('n', '<leader>tt', ':lua ToggleTheme()<CR>', { noremap = true, silent = true })
 
+-- folding
+vim.opt.foldmethod = 'indent'
+vim.opt.foldlevel = 1
 -- my custom aliases
 vim.api.nvim_create_user_command('Nt', 'Neotree', {})
 vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('n', 'Y', '"+Y', { noremap = true })
+vim.opt.tabstop = 4        -- Number of spaces a <Tab> in the file counts for
+vim.opt.shiftwidth = 4     -- Number of spaces to use for each step of (auto)indent
+vim.opt.expandtab = true   -- Use spaces instead of tabs

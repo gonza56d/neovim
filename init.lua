@@ -56,6 +56,22 @@ require('lazy').setup({
     end,
 },
 {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+        require('lualine').setup({
+            options = {
+                theme = 'ayu_light',  -- or choose a specific theme
+                icons_enabled = true,
+            },
+            sections = {
+                lualine_b = { 'branch', 'diff', 'diagnostics' },  -- Show git branch, diff, and diagnostics
+                lualine_c = { { 'filename', path = 1 } },          -- Show filename with relative path
+            },
+        })
+    end,
+},
+{
     'neovim/nvim-lspconfig',
     config = function()
       require('lspconfig').pyright.setup{}

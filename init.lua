@@ -223,6 +223,9 @@ vim.api.nvim_create_user_command('Nt', 'Neotree', {})
 vim.api.nvim_set_keymap('n', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('v', 'y', '"+y', { noremap = true })
 vim.api.nvim_set_keymap('n', 'Y', '"+Y', { noremap = true })
+-- lead key for files and live grep search.
+vim.api.nvim_set_keymap('n', '<leader>f', ':Fzf files<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>g', ':Fzf live_grep<CR>', { noremap = true, silent = true })
 vim.opt.tabstop = 4        -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4     -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true   -- Use spaces instead of tabs

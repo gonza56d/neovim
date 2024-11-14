@@ -35,6 +35,7 @@ require('lazy').setup({
 		]])
 	end
 },
+'nvim-treesitter/nvim-treesitter-context',
 {
 	'rakr/vim-one',
 	lazy = false,
@@ -182,6 +183,24 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 )
 
 vim.api.nvim_set_hl(0, 'PmenuBorder', { fg = 'white' })
+
+require('nvim-treesitter.configs').setup({
+  ensure_installed = { "python" },
+  highlight = { enable = true },
+})
+
+require('treesitter-context').setup({
+  enable = true,           -- Enable this plugin
+  max_lines = 0,           -- Set to 0 to display context even for very large functions
+  trim_scope = 'outer',    -- Removes lines that would push content off the window
+  mode = 'cursor',         -- Show context based on cursor location, not just top line
+  patterns = {             -- Specific patterns to ensure context in Python
+    python = {
+      'class_definition',
+      'function_definition',
+    },
+  },
+})
 
 -- Create a command to open NeoTree and a tmux pane
 vim.api.nvim_create_user_command('Code', function()

@@ -226,6 +226,10 @@ vim.api.nvim_set_keymap('n', 'Y', '"+Y', { noremap = true })
 -- lead key for files and live grep search.
 vim.api.nvim_set_keymap('n', '<leader>f', ':Fzf files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>g', ':Fzf live_grep<CR>', { noremap = true, silent = true })
+-- Map <leader>sh to horizontally split the current file
+vim.api.nvim_set_keymap('n', '<leader>v', ':split<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>b', ':vsplit<CR>', { noremap = true, silent = true })
+--
 vim.opt.tabstop = 4        -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4     -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true   -- Use spaces instead of tabs

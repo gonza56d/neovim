@@ -36,6 +36,7 @@ require('lazy').setup({
 	end
 },
 'nvim-treesitter/nvim-treesitter-context',
+'RRethy/vim-illuminate',
 {
 	'rakr/vim-one',
 	lazy = false,

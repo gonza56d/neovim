@@ -127,23 +127,44 @@ require('lazy').setup({
   end
 },
 {
-	'nvim-neo-tree/neo-tree.nvim',
-        branch = "v3.x",
-	dependencies = {
-		"nvim-lua/plenary.nvim",
-	        "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-		"MunifTanjim/nui.nvim",
-		-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
-	},
-	config = function()
-    	require("neo-tree").setup({
-      	filesystem = {
-        	filtered_items = {
-        	hide_dotfiles = false,  -- Show hidden files by setting to false
-        },
-      },
-    })
-  end
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+},
+{
+"nvim-neo-tree/neo-tree.nvim",
+
+dependencies = {
+  "nvim-lua/plenary.nvim",
+  "nvim-tree/nvim-web-devicons",
+  "MunifTanjim/nui.nvim",
+},
+config = function()
+  require("neo-tree").setup({
+    sources = {
+      "filesystem",
+      "git_status",
+    },
+    filesystem = {
+      follow_current_file = true,
+      hijack_netrw_behavior = "open_default",
+      use_libuv_file_watcher = true,
+      hide_dotfiles = false,
+    },
+    git_status = {
+      symbols = {
+        added     = "✚",
+        modified  = "",
+        deleted   = "✖",
+        renamed   = "➜",
+        untracked = "★",
+        ignored   = "◌",
+        unstaged  = "✗",
+        staged    = "✓",
+        conflict  = "",
+      }
+    },
+  })
+end,
 },
 {
     'windwp/nvim-autopairs',
@@ -246,9 +267,12 @@ vim.api.nvim_set_keymap('n', 'Y', '"+Y', { noremap = true })
 -- lead key for files and live grep search.
 vim.api.nvim_set_keymap('n', '<leader>f', ':Fzf files<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>g', ':Fzf live_grep<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>Telescope lsp_references<CR>", { noremap = true, silent = true })
 -- Map <leader>sh to horizontally split the current file
 vim.api.nvim_set_keymap('n', '<leader>v', ':split<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>b', ':vsplit<CR>', { noremap = true, silent = true })
+-- Map leader to open neo tree 
+vim.api.nvim_set_keymap('n', '<leader>t', ':Neotree<CR>', { noremap = true, silent = true })
 --
 vim.opt.tabstop = 4        -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4     -- Number of spaces to use for each step of (auto)indent

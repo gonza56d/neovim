@@ -129,6 +129,18 @@ require('lazy').setup({
 {
     "nvim-telescope/telescope.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+        require('telescope').setup({
+            defaults = {
+                border = true, -- Enable border
+                borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' }, -- Customize border characters
+                layout_config = {
+                    prompt_position = "top", -- Optional: Move prompt to the top
+                },
+                sorting_strategy = "ascending", -- Optional: Sort results in ascending order
+            },
+        })
+    end,
 },
 {
 "nvim-neo-tree/neo-tree.nvim",
@@ -165,6 +177,11 @@ config = function()
     },
   })
 end,
+},
+{
+    'akinsho/bufferline.nvim',
+    version = "*",
+    dependencies = 'nvim-tree/nvim-web-devicons', -- Optional for icons
 },
 {
     'windwp/nvim-autopairs',
@@ -223,6 +240,17 @@ require('treesitter-context').setup({
     },
   },
 })
+-- Buffers
+require("bufferline").setup({
+    options = {
+        separator_style = "slant", -- Customize the separator style (options: 'slant', 'thick', 'thin', etc.)
+        show_buffer_close_icons = true,
+        show_close_icon = false,
+        always_show_bufferline = true,
+    }
+})
+vim.keymap.set("n", "<Tab>", "<Cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-Tab>", "<Cmd>BufferLineCyclePrev<CR>", { desc = "Previous buffer" })
 
 -- Create a command to open NeoTree and a tmux pane
 vim.api.nvim_create_user_command('Code', function()

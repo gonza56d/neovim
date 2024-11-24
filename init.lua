@@ -337,6 +337,18 @@ vim.api.nvim_create_user_command(
     {}
 )
 
+-- Automatically unfold when cursor enters some folded content
+vim.api.nvim_create_autocmd("CursorMoved", {
+    pattern = "*",
+    callback = function()
+        -- Automatically unfold the current line if it is folded
+        local line = vim.fn.line(".")
+        if vim.fn.foldclosed(line) ~= -1 then
+            vim.cmd("normal! zA")
+        end
+    end,
+})
+
 -- edit line at the center of the screen and highlight
 vim.opt.scrolloff = 9999999
 vim.opt.cursorline = true

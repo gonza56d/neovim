@@ -76,7 +76,9 @@ require('lazy').setup({
 {
     'neovim/nvim-lspconfig',
     config = function()
-      require('lspconfig').pyright.setup{}
+        require('lspconfig').pyright.setup{}
+        require('lspconfig').tl_ls.setup{}
+        require('lspconfig').gopls.setup{}
     end,
   },
   {
@@ -192,6 +194,36 @@ end,
     end,
 },
 {
+    "prettier/vim-prettier",
+    run = "yarn install --frozen-lockfile --production",
+    config = function()
+        vim.g["prettier#autoformat"] = 1
+        vim.g["prettier#autoformat_require_pragma"] = 0
+    end,
+},
+{
+    "ray-x/go.nvim",
+    dependencies = {  -- Optional: DAP support for Go
+        "mfussenegger/nvim-dap",
+    },
+    config = function()
+        require('go').setup()
+    end,
+},
+{
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+        local null_ls = require("null-ls")
+        null_ls.setup({
+            sources = {
+                null_ls.builtins.formatting.eslint_d,  -- JavaScript/TypeScript
+                null_ls.builtins.formatting.gofmt,    -- Go
+            },
+        })
+    end,
+},
+{
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     config = function()
@@ -224,7 +256,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 vim.api.nvim_set_hl(0, 'PmenuBorder', { fg = 'white' })
 
 require('nvim-treesitter.configs').setup({
-  ensure_installed = { "python" },
+  ensure_installed = { "python", "javascript", "typescript", "go" },
   highlight = { enable = true },
 })
 

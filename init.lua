@@ -255,12 +255,20 @@ require("lazy").setup(
         {
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
+            dependencies = {
+                "p00f/nvim-ts-rainbow",
+            },
             config = function()
                 require("nvim-treesitter.configs").setup(
                     {
                         ensure_installed = {"python"},
                         highlight = {enable = true},
-                        indent = {enable = true} -- Enable automatic indentation
+                        indent = {enable = true}, -- Enable automatic indentation
+                        rainbow = {
+                            enable = true,
+                            extended_mode = true, -- Highlight non-bracket delimiters like HTML tags, etc.
+                            max_file_lines = nil, -- Disable for files with too many lines
+                        },
                     }
                 )
             end
@@ -362,6 +370,38 @@ vim.api.nvim_create_autocmd(
         end
     }
 )
+
+-- Configure colors for rainbow brackets
+vim.cmd([[
+    highlight RainbowDelimiterYellow guifg=#FFFF00
+    highlight RainbowDelimiterBlue guifg=#0000FF
+    highlight RainbowDelimiterRed guifg=#FF0000
+    highlight RainbowDelimiterGreen guifg=#00FF00
+    highlight RainbowDelimiterPurple guifg=#800080
+    highlight RainbowDelimiterCyan guifg=#00FFFF
+]])
+
+require("nvim-treesitter.configs").setup({
+    rainbow = {
+        enable = true,
+        colors = {
+            "#FFFF00", -- yellow
+            "#0000FF", -- blue
+            "#FF0000", -- red
+            "#00FF00", -- green
+            "#800080", -- purple
+            "#00FFFF", -- cyan
+        },
+        termcolors = { -- Backup for limited terminal palettes
+            "Yellow",
+            "Blue",
+            "Red",
+            "Green",
+            "Magenta",
+            "Cyan",
+        },
+    },
+})
 
 -- toggle between light and dark themes
 local current_theme = "darcula"

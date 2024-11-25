@@ -435,6 +435,9 @@ vim.api.nvim_set_keymap("n", "<leader>v", ":split<CR>", {noremap = true, silent 
 vim.api.nvim_set_keymap("n", "<leader>b", ":vsplit<CR>", {noremap = true, silent = true})
 -- Map leader to open neo tree
 vim.api.nvim_set_keymap("n", "<leader>t", ":Neotree<CR>", {noremap = true, silent = true})
+-- Custom scrolling
+vim.keymap.set('n', '<C-d>', '10jzz', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-u>', '10kzz', { noremap = true, silent = true })
 --
 vim.opt.tabstop = 4 -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent

@@ -261,13 +261,27 @@ require("lazy").setup(
             config = function()
                 require("nvim-treesitter.configs").setup(
                     {
-                        ensure_installed = {"python"},
+                        ensure_installed = {"python", "javascript", "typescript", "go"},
                         highlight = {enable = true},
                         indent = {enable = true}, -- Enable automatic indentation
                         rainbow = {
                             enable = true,
-                            extended_mode = true, -- Highlight non-bracket delimiters like HTML tags, etc.
-                            max_file_lines = nil, -- Disable for files with too many lines
+                            colors = {
+                                "#FFFF00", -- yellow
+                                "#0000FF", -- blue
+                                "#FF0000", -- red
+                                "#00FF00", -- green
+                                "#800080", -- purple
+                                "#00FFFF", -- cyan
+                            },
+                            termcolors = { -- Backup for limited terminal palettes
+                                "Yellow",
+                                "Blue",
+                                "Red",
+                                "Green",
+                                "Magenta",
+                                "Cyan",
+                            },
                         },
                     }
                 )
@@ -299,12 +313,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
 vim.api.nvim_set_hl(0, "PmenuBorder", {fg = "white"})
 
-require("nvim-treesitter.configs").setup(
-    {
-        ensure_installed = {"python", "javascript", "typescript", "go"},
-        highlight = {enable = true}
-    }
-)
 
 require("treesitter-context").setup(
     {
@@ -358,7 +366,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 })
 
 -- edit line at the center of the screen and highlight
-vim.opt.scrolloff = 3 
+vim.opt.scrolloff = 5 
 vim.opt.cursorline = true
 vim.cmd("highlight CursorLine ctermbg=236 guibg=#71406e")
 vim.api.nvim_create_autocmd(
@@ -381,27 +389,6 @@ vim.cmd([[
     highlight RainbowDelimiterCyan guifg=#00FFFF
 ]])
 
-require("nvim-treesitter.configs").setup({
-    rainbow = {
-        enable = true,
-        colors = {
-            "#FFFF00", -- yellow
-            "#0000FF", -- blue
-            "#FF0000", -- red
-            "#00FF00", -- green
-            "#800080", -- purple
-            "#00FFFF", -- cyan
-        },
-        termcolors = { -- Backup for limited terminal palettes
-            "Yellow",
-            "Blue",
-            "Red",
-            "Green",
-            "Magenta",
-            "Cyan",
-        },
-    },
-})
 
 -- toggle between light and dark themes
 local current_theme = "darcula"

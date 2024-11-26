@@ -358,9 +358,9 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 })
 
 -- edit line at the center of the screen and highlight
-vim.opt.scrolloff = 9999999
+vim.opt.scrolloff = 3 
 vim.opt.cursorline = true
-vim.cmd("highlight CursorLine ctermbg=236 guibg=#2e3440")
+vim.cmd("highlight CursorLine ctermbg=236 guibg=#71406e")
 vim.api.nvim_create_autocmd(
     "BufWritePre",
     {

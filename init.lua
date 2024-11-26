@@ -23,6 +23,7 @@ vim.g.python3_host_pro = "/Library/Frameworks/Python.framework/Versions/3.12/bin
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = ","
+vim.opt.colorcolumn = "120"
 
 -- Setup lazy.nvim
 require("lazy").setup(

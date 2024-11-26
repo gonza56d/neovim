@@ -262,7 +262,7 @@ require("lazy").setup(
             config = function()
                 require("nvim-treesitter.configs").setup(
                     {
-                        ensure_installed = {"python", "javascript", "typescript", "go"},
+                        ensure_installed = {"python", "javascript", "typescript", "go", "sql"},
                         highlight = {enable = true},
                         indent = {enable = true}, -- Enable automatic indentation
                         rainbow = {

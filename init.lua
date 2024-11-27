@@ -25,6 +25,25 @@ vim.g.python3_host_pro = "/Library/Frameworks/Python.framework/Versions/3.12/bin
 vim.g.mapleader = ","
 vim.opt.colorcolumn = "120"
 
+-- Rainbow colors
+local dark_colors = {
+    "#FFFF00", -- yellow
+    "#0000FF", -- blue
+    "#FF0000", -- red
+    "#00FF00", -- green
+    "#800080", -- purple
+    "#00FFFF", -- cyan
+}
+local light_colors = {
+    "#BFBF00", -- darker yellow
+    "#000080", -- navy blue
+    "#800000", -- maroon
+    "#008000", -- dark green
+    "#4B0082", -- indigo
+    "#008B8B", -- dark cyan
+}
+
+
 -- Setup lazy.nvim
 require("lazy").setup(
     {
@@ -267,14 +286,7 @@ require("lazy").setup(
                         indent = {enable = true}, -- Enable automatic indentation
                         rainbow = {
                             enable = true,
-                            colors = {
-                                "#FFFF00", -- yellow
-                                "#0000FF", -- blue
-                                "#FF0000", -- red
-                                "#00FF00", -- green
-                                "#800080", -- purple
-                                "#00FFFF", -- cyan
-                            },
+                            colors = light_colors,
                             termcolors = { -- Backup for limited terminal palettes
                                 "Yellow",
                                 "Blue",
@@ -380,31 +392,27 @@ vim.api.nvim_create_autocmd(
     }
 )
 
--- Configure colors for rainbow brackets
-vim.cmd([[
-    highlight RainbowDelimiterYellow guifg=#FFFF00
-    highlight RainbowDelimiterBlue guifg=#0000FF
-    highlight RainbowDelimiterRed guifg=#FF0000
-    highlight RainbowDelimiterGreen guifg=#00FF00
-    highlight RainbowDelimiterPurple guifg=#800080
-    highlight RainbowDelimiterCyan guifg=#00FFFF
-]])
-
-
 -- toggle between light and dark themes
 local current_theme = "darcula"
 function ToggleTheme()
     if current_theme == "darcula" then
         vim.cmd("colorscheme one")
         vim.o.background = "light"
+        require("nvim-treesitter.configs").setup({
+            rainbow = { colors = light_colors }
+        })
         current_theme = "one"
     else
         vim.cmd("colorscheme darcula-dark")
         vim.o.background = "dark"
+        require("nvim-treesitter.configs").setup({
+            rainbow = { colors = dark_colors }
+        })
         current_theme = "darcula"
     end
 end
 vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = true, silent = true})
+
 
 -- folding
 vim.opt.foldmethod = "indent"

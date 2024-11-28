@@ -114,6 +114,7 @@ require("lazy").setup(
                 require("lspconfig").gopls.setup {}
             end
         },
+        'tpope/vim-fugitive',
         {
             "hrsh7th/nvim-cmp",
             dependencies = {

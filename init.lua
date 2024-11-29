@@ -117,6 +117,28 @@ require("lazy").setup(
         },
         'tpope/vim-fugitive',
         {
+            'nvim-neotest/neotest',
+            dependencies = {
+                'nvim-neotest/nvim-nio',
+                'nvim-neotest/neotest-python',
+                'nvim-lua/plenary.nvim',
+                'nvim-neotest/neotest-plenary'
+            },
+            config = function()
+                require('neotest').setup({
+                    adapters = {
+                        require('neotest-python')({
+                            args = { '-vv' }
+                        })
+                    },
+                    quickfix = {
+                        enabled = true,
+                        open = false
+                    }
+                })
+            end
+        },
+        {
             "hrsh7th/nvim-cmp",
             dependencies = {
                 "hrsh7th/cmp-nvim-lsp", -- LSP completion source
@@ -327,6 +349,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 )
 
 vim.api.nvim_set_hl(0, "PmenuBorder", {fg = "white"})
+
+-- Run test cases
+vim.keymap.set('n', '<leader>tc', ':lua require("neotest").run.run()<CR>', {desc = 'Tests run current'})
+vim.keymap.set('n', '<leader>ta', ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {desc = 'Tests run all'})
 
 
 require("treesitter-context").setup(

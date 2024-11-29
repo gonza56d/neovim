@@ -63,6 +63,24 @@ require("lazy").setup(
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         {
+            "folke/which-key.nvim",
+            event = "VeryLazy",
+            opts = {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            },
+            keys = {
+                {
+                  "<leader>?",
+                  function()
+                    require("which-key").show({ global = false })
+                  end,
+                  desc = "Buffer Local Keymaps (which-key)",
+                },
+            },
+        },
+        {
             "rakr/vim-one",
             lazy = false,
             priority = 1000
@@ -353,7 +371,12 @@ vim.api.nvim_set_hl(0, "PmenuBorder", {fg = "white"})
 -- Run test cases
 vim.keymap.set('n', '<leader>tc', ':lua require("neotest").run.run()<CR>', {desc = 'Tests run current'})
 vim.keymap.set('n', '<leader>ta', ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {desc = 'Tests run all'})
-
+vim.keymap.set(
+    'n', '<F4>',
+   ':lua require("neotest").output_panel.toggle({last_run = true})<CR>',
+   {desc = 'Tests toggle output panel'}
+)
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = 'LSP Diagnostics float'})
 
 require("treesitter-context").setup(
     {

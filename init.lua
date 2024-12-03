@@ -25,25 +25,6 @@ vim.g.python3_host_pro = "/Library/Frameworks/Python.framework/Versions/3.12/bin
 vim.g.mapleader = ","
 vim.opt.colorcolumn = "120"
 
--- Rainbow colors
-local dark_colors = {
-    "#FFFF00", -- yellow
-    "#0000FF", -- blue
-    "#FF0000", -- red
-    "#00FF00", -- green
-    "#800080", -- purple
-    "#00FFFF", -- cyan
-}
-local light_colors = {
-    "#BFBF00", -- darker yellow
-    "#000080", -- navy blue
-    "#800000", -- maroon
-    "#008000", -- dark green
-    "#4B0082", -- indigo
-    "#008B8B", -- dark cyan
-}
-
-
 -- Setup lazy.nvim
 require("lazy").setup(
     {
@@ -54,11 +35,11 @@ require("lazy").setup(
             },
             lazy = false,
             priority = 1000,
-            config = function()
-                vim.cmd([[
-		colorscheme darcula-dark
-		]])
-            end
+--            config = function()
+ --               vim.cmd([[
+  --              colorscheme darcula-dark
+   --             ]])
+    --        end
         },
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
@@ -83,7 +64,10 @@ require("lazy").setup(
         {
             "rakr/vim-one",
             lazy = false,
-            priority = 1000
+            priority = 1000,
+            config = function()
+                vim.cmd([[colorscheme one]])
+            end
         },
         {
             "Yggdroot/indentLine",
@@ -328,15 +312,8 @@ require("lazy").setup(
                         indent = {enable = true}, -- Enable automatic indentation
                         rainbow = {
                             enable = true,
-                            colors = light_colors,
-                            termcolors = { -- Backup for limited terminal palettes
-                                "Yellow",
-                                "Blue",
-                                "Red",
-                                "Green",
-                                "Magenta",
-                                "Cyan",
-                            },
+                            colors = {"#ff00ff"},
+                            termcolors = {"Magenta"},
                         },
                     }
                 )
@@ -444,22 +421,16 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-local current_theme = "darcula"
+local current_theme = "dark"
 function ToggleTheme()
-    if current_theme == "darcula" then
+    if current_theme == "dark" then
         vim.cmd("colorscheme one")
         vim.o.background = "light"
-        require("nvim-treesitter.configs").setup({
-            rainbow = { colors = light_colors }
-        })
-        current_theme = "one"
+        current_theme = "light"
     else
-        vim.cmd("colorscheme darcula-dark")
+        vim.cmd("colorscheme one")
         vim.o.background = "dark"
-        require("nvim-treesitter.configs").setup({
-            rainbow = { colors = dark_colors }
-        })
-        current_theme = "darcula"
+        current_theme = "dark"
     end
 end
 vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = true, silent = true})

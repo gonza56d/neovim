@@ -427,10 +427,12 @@ function ToggleTheme()
         vim.cmd("colorscheme one")
         vim.o.background = "light"
         current_theme = "light"
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     else
         vim.cmd("colorscheme one")
         vim.o.background = "dark"
         current_theme = "dark"
+        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
     end
 end
 vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = true, silent = true})
@@ -460,4 +462,5 @@ vim.keymap.set('n', '<C-u>', '10<C-y>', { noremap = true, silent = true })
 vim.opt.tabstop = 4 -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 

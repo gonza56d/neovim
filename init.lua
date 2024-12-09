@@ -409,6 +409,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 -- edit line at the center of the screen and highlight
 vim.opt.scrolloff = 5 
 vim.opt.cursorline = true
+
 vim.api.nvim_create_autocmd(
     "BufWritePre",
     {
@@ -464,3 +465,5 @@ vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
 vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", italic = true })
+vim.cmd([[highlight ColorColumn guibg=#000000]])
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })

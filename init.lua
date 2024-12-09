@@ -463,3 +463,4 @@ vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
+vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", italic = true })

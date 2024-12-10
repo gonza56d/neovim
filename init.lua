@@ -473,4 +473,4 @@ vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", italic = true })
 vim.cmd([[highlight ColorColumn guibg=#000000]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
-
+vim.api.nvim_set_hl(0, "Visual", { bg = "#4d004d" })

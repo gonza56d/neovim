@@ -361,6 +361,7 @@ require("treesitter-context").setup(
         max_lines = 0, -- Set to 0 to display context even for very large functions
         trim_scope = "outer", -- Removes lines that would push content off the window
         mode = "cursor", -- Show context based on cursor location, not just top line
+        separator = "-",
         patterns = {
             -- Specific patterns to ensure context in Python
             python = {

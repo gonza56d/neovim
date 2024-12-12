@@ -98,13 +98,39 @@ require("lazy").setup(
                 require("lualine").setup(
                     {
                         options = {
-                            theme = "ayu_light", -- or choose a specific theme
-                            icons_enabled = true
+                            icons_enabled = true,
+                            theme = {
+                                normal = {
+                                    a = { fg = '#00ffff' },
+                                    b = { fg = '#00ffff' },
+                                    c = { fg = '#000000', bg = '#00ffff' },
+                                },
+                                insert = {
+                                    a = { fg = '#00ff00' },
+                                    b = { fg = '#00ff00' },
+                                    c = { fg = '#000000', bg = '#00ff00' },
+                                },
+                                visual = {
+                                    a = { fg = '#ff00ff' },
+                                    b = { fg = '#ff00ff' },
+                                    c = { fg = '#000000', bg = '#ff00ff' },
+                                },
+                                replace = {
+                                    a = { fg = '#ff0000' },
+                                    b = { fg = '#ff0000' },
+                                    c = { fg = '#000000', bg = '#ff0000' },
+                                },
+                                command = {
+                                    a = { fg = '#ffff00' },
+                                    b = { fg = '#ffff00' },
+                                    c = { fg = '#000000', bg = '#ffff00' },
+                                },
+                            },
                         },
                         sections = {
                             lualine_b = {"branch", "diff", "diagnostics"}, -- Show git branch, diff, and diagnostics
                             lualine_c = {{"filename", path = 1}} -- Show filename with relative path
-                        }
+                        },
                     }
                 )
             end
@@ -439,7 +465,7 @@ function ToggleTheme()
     vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
     vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
     vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
-    vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", italic = true })
+    vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 end
 vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = true, silent = true})
 
@@ -470,7 +496,7 @@ vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
-vim.api.nvim_set_hl(0, "Folded", { bg = "NONE", italic = true })
+vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 vim.cmd([[highlight ColorColumn guibg=#000000]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })

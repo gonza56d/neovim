@@ -41,6 +41,8 @@ require("lazy").setup(
    --             ]])
     --        end
         },
+        'github/copilot.vim',
+        --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         {

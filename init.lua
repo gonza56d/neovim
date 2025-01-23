@@ -25,6 +25,9 @@ vim.g.python3_host_pro = "/Library/Frameworks/Python.framework/Versions/3.12/bin
 vim.g.mapleader = ","
 vim.opt.colorcolumn = "120"
 
+-- spellchecker 
+vim.opt_local.spell = true
+vim.opt_local.spelllang = "en_us"
 -- Setup lazy.nvim
 require("lazy").setup(
     {
@@ -492,7 +495,7 @@ vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = 
 
 
 -- folding
---vim.opt.foldmethod = "indent"
+vim.opt.foldmethod = "indent"
 --vim.opt.foldlevel = 1
 -- my custom aliases
 vim.api.nvim_create_user_command("Nt", "Neotree", {})

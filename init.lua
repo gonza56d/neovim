@@ -44,7 +44,7 @@ require("lazy").setup(
    --             ]])
     --        end
         },
-        'github/copilot.vim',
+        --'github/copilot.vim',
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
@@ -495,8 +495,10 @@ vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = 
 
 
 -- folding
-vim.opt.foldmethod = "indent"
---vim.opt.foldlevel = 1
+vim.opt.foldenable = false
+vim.opt.foldlevel = 99
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- my custom aliases
 vim.api.nvim_create_user_command("Nt", "Neotree", {})
 vim.api.nvim_set_keymap("n", "y", '"+y', {noremap = true})

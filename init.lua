@@ -479,15 +479,16 @@ function ToggleTheme()
         vim.o.background = "light"
         current_theme = "light"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
         vim.cmd("colorscheme one")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
     end
     vim.cmd([[highlight ColorColumn guibg=#000000]])
     vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
-    vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
     vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
     vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 end
@@ -507,6 +508,7 @@ vim.api.nvim_set_keymap("n", "Y", '"+Y', {noremap = true})
 -- lead key for files and live grep search.
 vim.api.nvim_set_keymap("n", "<leader>f", ":Fzf files<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>g", ":Fzf live_grep<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>w", ":Fzf buffers<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>Telescope lsp_references<CR>", {noremap = true, silent = true})
 -- Map <leader>sh to horizontally split the current file
 vim.api.nvim_set_keymap("n", "<leader>v", ":split<CR>", {noremap = true, silent = true})

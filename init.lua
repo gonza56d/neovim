@@ -461,6 +461,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 vim.opt.scrolloff = 5 
 vim.opt.cursorline = true
 
+-- auto format on write
 vim.api.nvim_create_autocmd(
     "BufWritePre",
     {
@@ -500,6 +501,16 @@ vim.opt.foldenable = false
 vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+-- html
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "html", "htmldjango" },
+	callback = function()
+		vim.bo.tabstop = 4
+		vim.bo.shiftwidth = 4
+		vim.bo.softtabstop = 4
+		vim.bo.expandtab = true
+	end,
+})
 -- my custom aliases
 vim.api.nvim_create_user_command("Nt", "Neotree", {})
 vim.api.nvim_set_keymap("n", "y", '"+y', {noremap = true})

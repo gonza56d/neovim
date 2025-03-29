@@ -38,11 +38,11 @@ require("lazy").setup(
             },
             lazy = false,
             priority = 1000,
---            config = function()
- --               vim.cmd([[
-  --              colorscheme darcula-dark
-   --             ]])
-    --        end
+            config = function()
+                vim.cmd([[
+                colorscheme darcula-dark
+                ]])
+            end
         },
         --'github/copilot.vim',
         --'Exafunction/codeium.vim',
@@ -52,9 +52,9 @@ require("lazy").setup(
             "rakr/vim-one",
             lazy = false,
             priority = 1000,
-            config = function()
-                vim.cmd([[colorscheme one]])
-            end
+            --config = function()
+                --vim.cmd([[colorscheme one]])
+            --end
         },
         {
             "Yggdroot/indentLine",
@@ -409,7 +409,7 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme one")
+        vim.cmd("colorscheme darcula-dark")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

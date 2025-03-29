@@ -408,7 +408,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = 'LSP Diagnos
 require("treesitter-context").setup(
     {
         enable = true, -- Enable this plugin
-        max_lines = 0, -- Set to 0 to display context even for very large functions
+        max_lines = 5, -- Set to 0 to display context even for very large functions
         trim_scope = "outer", -- Removes lines that would push content off the window
         mode = "cursor", -- Show context based on cursor location, not just top line
         separator = "_",

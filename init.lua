@@ -49,24 +49,6 @@ require("lazy").setup(
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         {
-            "folke/which-key.nvim",
-            event = "VeryLazy",
-            opts = {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            },
-            keys = {
-                {
-                  "<leader>?",
-                  function()
-                    require("which-key").show({ global = false })
-                  end,
-                  desc = "Buffer Local Keymaps (which-key)",
-                },
-            },
-        },
-        {
             "rakr/vim-one",
             lazy = false,
             priority = 1000,
@@ -240,61 +222,6 @@ require("lazy").setup(
                         },
                         git_files = {
                             cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'" -- Use ripgrep (rg) for git files
-                        }
-                    }
-                )
-            end
-        },
-        {
-            "nvim-telescope/telescope.nvim",
-            dependencies = {"nvim-lua/plenary.nvim"},
-            config = function()
-                require("telescope").setup(
-                    {
-                        defaults = {
-                            border = true, -- Enable border
-                            borderchars = {"─", "│", "─", "│", "┌", "┐", "┘", "└"}, -- Customize border characters
-                            layout_config = {
-                                prompt_position = "top" -- Optional: Move prompt to the top
-                            },
-                            sorting_strategy = "ascending" -- Optional: Sort results in ascending order
-                        }
-                    }
-                )
-            end
-        },
-        {
-            "nvim-neo-tree/neo-tree.nvim",
-            dependencies = {
-                "nvim-lua/plenary.nvim",
-                "nvim-tree/nvim-web-devicons",
-                "MunifTanjim/nui.nvim"
-            },
-            config = function()
-                require("neo-tree").setup(
-                    {
-                        sources = {
-                            "filesystem",
-                            "git_status"
-                        },
-                        filesystem = {
-                            follow_current_file = true,
-                            hijack_netrw_behavior = "open_default",
-                            use_libuv_file_watcher = true,
-                            hide_dotfiles = false
-                        },
-                        git_status = {
-                            symbols = {
-                                added = "✚",
-                                modified = "",
-                                deleted = "✖",
-                                renamed = "➜",
-                                untracked = "★",
-                                ignored = "◌",
-                                unstaged = "✗",
-                                staged = "✓",
-                                conflict = ""
-                            }
                         }
                     }
                 )
@@ -520,7 +447,8 @@ vim.api.nvim_set_keymap("n", "Y", '"+Y', {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>f", ":Fzf files<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>g", ":Fzf live_grep<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>w", ":Fzf buffers<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>Telescope lsp_references<CR>", {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>Telescope lsp_references<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>u", "<cmd>lua require('fzf-lua').lsp_references()<CR>", {noremap = true, silent = true})
 -- Map <leader>sh to horizontally split the current file
 vim.api.nvim_set_keymap("n", "<leader>v", ":split<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>b", ":vsplit<CR>", {noremap = true, silent = true})

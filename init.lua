@@ -32,6 +32,23 @@ vim.opt_local.spelllang = "en_us"
 require("lazy").setup(
     {
         {
+            "windwp/nvim-ts-autotag",
+            event = "InsertEnter",
+            config = function()
+                require("nvim-ts-autotag").setup({
+                    opts = {
+                        enable_close = true,       -- autocierra tags
+                        enable_rename = true,      -- autorenombra etiquetas
+                        enable_close_on_slash = false, -- no cierra con </
+                    },
+                    -- si querés deshabilitar en algún filetype:
+                    per_filetype = {
+                        -- ["html"] = { enable_close = false },
+                    },
+                })
+            end,
+        },
+        {
             "xiantang/darcula-dark.nvim",
             dependencies = {
                 "nvim-treesitter/nvim-treesitter"
@@ -48,6 +65,7 @@ require("lazy").setup(
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
+        "MunifTanjim/eslint.nvim",
         {
             "rakr/vim-one",
             lazy = false,
@@ -145,8 +163,8 @@ require("lazy").setup(
             "neovim/nvim-lspconfig",
             config = function()
                 require("lspconfig").pyright.setup {}
-                require("lspconfig").tl_ls.setup {}
                 require("lspconfig").gopls.setup {}
+                require("lspconfig").ts_ls.setup {}
             end
         },
         'tpope/vim-fugitive',
@@ -278,24 +296,14 @@ require("lazy").setup(
         {
             "nvim-treesitter/nvim-treesitter",
             build = ":TSUpdate",
-            dependencies = {
-                "p00f/nvim-ts-rainbow",
-            },
             config = function()
-                require("nvim-treesitter.configs").setup(
-                    {
-                        ensure_installed = {"python", "javascript", "typescript", "go", "sql"},
-                        highlight = {enable = true},
-                        indent = {enable = true}, -- Enable automatic indentation
-                        rainbow = {
-                            enable = true,
-                            colors = {"#ff00ff"},
-                            termcolors = {"Magenta"},
-                        },
-                    }
-                )
-            end
-        }
+                require("nvim-treesitter.configs").setup({
+                    ensure_installed = { "python", "javascript", "typescript", "go", "sql", "html" }, -- add html for autotag
+                    highlight = { enable = true },
+                    indent = { enable = true },
+                })
+            end,
+        },
     }
 )
 
@@ -438,8 +446,8 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.bo.expandtab = true
 	end,
 })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP Code Action" })
 -- my custom aliases
-vim.api.nvim_create_user_command("Nt", "Neotree", {})
 vim.api.nvim_set_keymap("n", "y", '"+y', {noremap = true})
 vim.api.nvim_set_keymap("v", "y", '"+y', {noremap = true})
 vim.api.nvim_set_keymap("n", "Y", '"+Y', {noremap = true})
@@ -468,3 +476,43 @@ vim.cmd([[highlight ColorColumn guibg=#000000]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#4d004d" })
+-- More readable errors to distinguish them from minor warnings
+vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff0000", bold = true })   -- bright red
+vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ffaa00" })                 -- orange
+vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = "#00ffff" })                 -- cyan
+vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#aaaaaa" })                 -- gray
+vim.fn.sign_define("DiagnosticSignError", {text = "✘", texthl = "DiagnosticSignError"})
+vim.fn.sign_define("DiagnosticSignWarn",  {text = "▲", texthl = "DiagnosticSignWarn"})
+vim.fn.sign_define("DiagnosticSignInfo",  {text = "ℹ", texthl = "DiagnosticSignInfo"})
+vim.fn.sign_define("DiagnosticSignHint",  {text = "➤", texthl = "DiagnosticSignHint"})
+vim.diagnostic.config({
+	underline = true,
+})
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", {
+	underline = true,
+	bold = true,
+	sp = "#ff0000",
+})
+vim.diagnostic.config({
+	update_in_insert = true,
+	virtual_text = {
+		prefix = "●",  -- or "🔥", ">>", etc.
+		severity = {
+			min = vim.diagnostic.severity.ERROR
+		},
+	},
+	signs = true,
+	underline = true,
+	severity_sort = true,
+})
+-- Error: Red underline
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError", {
+	underline = true,
+	sp = "#ff0000", -- Red
+})
+
+-- Warning: Yellow underline (or dimmer)
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", {
+	underline = true,
+	sp = "#ffaa00", -- Orange/yellow
+})

@@ -55,10 +55,19 @@ require("lazy").setup(
             },
             lazy = false,
             priority = 1000,
-            config = function()
-                vim.cmd([[
-                colorscheme darcula-dark
-                ]])
+            --config = function()
+                --vim.cmd([[
+                --colorscheme darcula-dark
+                --]])
+            --end
+        },
+        {
+            "baliestri/aura-theme",
+            lazy = false,
+            priority = 1000,
+            config = function(plugin)
+                vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
+                vim.cmd([[colorscheme aura-dark]])
             end
         },
         --'github/copilot.vim',
@@ -236,7 +245,7 @@ require("lazy").setup(
                             ["--preview"] = "cat {}" -- Set the preview command (optional)
                         },
                         files = {
-                            cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'" -- Use ripgrep (rg) to find files
+                            cmd = "rg --files --hidden --no-ignore --glob '!{.git,node_modules,.venv,venv}/*'" -- Use ripgrep (rg) to find files
                         },
                         git_files = {
                             cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'" -- Use ripgrep (rg) for git files
@@ -279,19 +288,9 @@ require("lazy").setup(
             end
         },
         {
-            "jose-elias-alvarez/null-ls.nvim",
-            dependencies = {"nvim-lua/plenary.nvim"},
-            config = function()
-                local null_ls = require("null-ls")
-                null_ls.setup(
-                    {
-                        sources = {
-                            null_ls.builtins.formatting.eslint_d, -- JavaScript/TypeScript
-                            null_ls.builtins.formatting.gofmt -- Go
-                        }
-                    }
-                )
-            end
+        	"nvimtools/none-ls.nvim", -- fork of null-ls
+            event = { "BufReadPre", "BufNewFile" },
+            opts = {},
         },
         {
             "nvim-treesitter/nvim-treesitter",
@@ -332,7 +331,6 @@ vim.api.nvim_set_hl(0, "PmenuBorder", {fg = "white"})
 
 -- Run test cases
 vim.keymap.set('n', '<leader>tc', ':lua require("neotest").run.run()<CR>', {desc = 'Tests run current'})
-vim.keymap.set('n', '<leader>ta', ':lua require("neotest").run.run(vim.fn.expand("%"))<CR>', {desc = 'Tests run all'})
 vim.keymap.set(
     'n', '<F4>',
    ':lua require("neotest").output_panel.toggle({last_run = true})<CR>',
@@ -411,13 +409,13 @@ vim.api.nvim_create_autocmd(
 local current_theme = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
-        vim.cmd("colorscheme one")
+        vim.cmd("colorscheme pawno_light")
         vim.o.background = "light"
         current_theme = "light"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme darcula-dark")
+        vim.cmd("colorscheme aura-dark")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

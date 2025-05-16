@@ -245,7 +245,7 @@ require("lazy").setup(
                             ["--preview"] = "cat {}" -- Set the preview command (optional)
                         },
                         files = {
-                            cmd = "rg --files --hidden --no-ignore --glob '!{.git,node_modules,.venv,venv}/*'" -- Use ripgrep (rg) to find files
+                            cmd = "rg --files --hidden --no-ignore --glob '!**/__pycache__/*' --glob '!{.git,node_modules,.venv,venv,.pytest_cache}/*'" -- Use ripgrep (rg) to find files
                         },
                         git_files = {
                             cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'" -- Use ripgrep (rg) for git files

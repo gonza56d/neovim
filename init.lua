@@ -49,25 +49,12 @@ require("lazy").setup(
             end,
         },
         {
-            "xiantang/darcula-dark.nvim",
-            dependencies = {
-                "nvim-treesitter/nvim-treesitter"
-            },
-            lazy = false,
-            priority = 1000,
-            --config = function()
-                --vim.cmd([[
-                --colorscheme darcula-dark
-                --]])
-            --end
-        },
-        {
-            "baliestri/aura-theme",
+            "rebelot/kanagawa.nvim",
             lazy = false,
             priority = 1000,
             config = function(plugin)
                 vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
-                vim.cmd([[colorscheme aura-dark]])
+                vim.cmd([[colorscheme kanagawa]])
             end
         },
         --'github/copilot.vim',
@@ -75,14 +62,6 @@ require("lazy").setup(
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         "MunifTanjim/eslint.nvim",
-        {
-            "rakr/vim-one",
-            lazy = false,
-            priority = 1000,
-            --config = function()
-                --vim.cmd([[colorscheme one]])
-            --end
-        },
         {
             "Yggdroot/indentLine",
             config = function()
@@ -171,9 +150,16 @@ require("lazy").setup(
         {
             "neovim/nvim-lspconfig",
             config = function()
-                require("lspconfig").pyright.setup {}
-                require("lspconfig").gopls.setup {}
-                require("lspconfig").ts_ls.setup {}
+                local lspconfig = require("lspconfig") -- <-- this line is needed
+
+                lspconfig.pyright.setup {}
+                lspconfig.gopls.setup {}
+                lspconfig.ts_ls.setup {}
+                lspconfig.clangd.setup {
+                    cmd = { "clangd" },
+                    filetypes = { "c", "cpp", "objc", "objcpp" },
+                    root_dir = lspconfig.util.root_pattern("compile_commands.json", "compile_flags.txt", ".git"),
+                }
             end
         },
         'tpope/vim-fugitive',
@@ -245,7 +231,7 @@ require("lazy").setup(
                             ["--preview"] = "cat {}" -- Set the preview command (optional)
                         },
                         files = {
-                            cmd = "rg --files --hidden --no-ignore --glob '!**/__pycache__/*' --glob '!{.git,node_modules,.venv,venv,.pytest_cache}/*'" -- Use ripgrep (rg) to find files
+                            cmd = "rg --files --hidden --no-ignore --glob '!**/__pycache__/*' --glob '!{.git,node_modules,dist,.venv,venv,.pytest_cache}/*'" -- Use ripgrep (rg) to find files
                         },
                         git_files = {
                             cmd = "rg --files --hidden --glob '!{.git,node_modules}/*'" -- Use ripgrep (rg) for git files
@@ -406,6 +392,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
+vim.cmd("colorscheme kanagawa")
 local current_theme = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
@@ -415,11 +402,11 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme aura-dark")
+        vim.cmd("colorscheme kanagawa")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })
     end
     vim.cmd([[highlight ColorColumn guibg=#000000]])
     vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
@@ -472,7 +459,7 @@ vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
 vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 vim.cmd([[highlight ColorColumn guibg=#000000]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "#4d004d" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#4d004d" })
 -- More readable errors to distinguish them from minor warnings
 vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff0000", bold = true })   -- bright red

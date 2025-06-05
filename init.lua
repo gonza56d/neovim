@@ -52,10 +52,10 @@ require("lazy").setup(
             "rebelot/kanagawa.nvim",
             lazy = false,
             priority = 1000,
-            config = function(plugin)
-                vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
-                vim.cmd([[colorscheme kanagawa]])
-            end
+            --config = function(plugin)
+                --vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
+                --vim.cmd([[colorscheme kanagawa]])
+            --end
         },
         --'github/copilot.vim',
         --'Exafunction/codeium.vim',
@@ -392,7 +392,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme kanagawa")
+vim.cmd("colorscheme zira")
 local current_theme = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
@@ -402,7 +402,7 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme kanagawa")
+        vim.cmd("colorscheme zira")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

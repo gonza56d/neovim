@@ -451,7 +451,7 @@ vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 vim.cmd([[highlight ColorColumn guibg=#000000]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })
-vim.api.nvim_set_hl(0, "Visual", { bg = "#4d004d" })
+vim.api.nvim_set_hl(0, "Visual", { bg = "#757a61" })
 -- More readable errors to distinguish them from minor warnings
 vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff0000", bold = true })   -- bright red
 vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ffaa00" })                 -- orange

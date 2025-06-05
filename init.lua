@@ -48,15 +48,6 @@ require("lazy").setup(
                 })
             end,
         },
-        {
-            "rebelot/kanagawa.nvim",
-            lazy = false,
-            priority = 1000,
-            --config = function(plugin)
-                --vim.opt.rtp:append(plugin.dir .. "/packages/neovim")
-                --vim.cmd([[colorscheme kanagawa]])
-            --end
-        },
         --'github/copilot.vim',
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",

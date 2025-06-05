@@ -33,3 +33,9 @@ vim.api.nvim_set_hl(0, "StatusLine", { fg = colors.cream, bg = colors.dark_gray 
 vim.api.nvim_set_hl(0, "VertSplit", { fg = colors.dark_gray })
 vim.api.nvim_set_hl(0, "Pmenu", { fg = colors.gray, bg = colors.black })
 vim.api.nvim_set_hl(0, "PmenuSel", { fg = colors.black, bg = colors.eye_green })
+-- Treesitter overrides for types, constructors, etc.
+vim.api.nvim_set_hl(0, "@constructor", { fg = colors.peach })
+vim.api.nvim_set_hl(0, "@type", { fg = colors.peach })
+vim.api.nvim_set_hl(0, "@class", { fg = colors.peach })
+vim.api.nvim_set_hl(0, "@function.builtin", { fg = colors.peach })
+vim.api.nvim_set_hl(0, "@type.builtin", { fg = colors.peach })

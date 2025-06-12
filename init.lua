@@ -53,6 +53,7 @@ require("lazy").setup(
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         "MunifTanjim/eslint.nvim",
+        {"ellisonleao/gruvbox.nvim", priority = 1000 , config = true,},
         {
             "Yggdroot/indentLine",
             config = function()
@@ -383,7 +384,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme zira")
+vim.cmd("colorscheme gruvbox")
 local current_theme = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
@@ -393,7 +394,7 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme zira")
+        vim.cmd("colorscheme gruvbox")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

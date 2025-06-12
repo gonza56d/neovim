@@ -386,6 +386,10 @@ vim.api.nvim_create_autocmd(
 -- toggle between light and dark themes
 vim.cmd("colorscheme gruvbox")
 local current_theme = "dark"
+vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
+vim.api.nvim_set_hl(0, "Cursor", { bg = "#FFFFFF", fg = "#000000" })
+vim.o.background = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
         vim.cmd("colorscheme pawno_light")
@@ -398,7 +402,7 @@ function ToggleTheme()
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
     end
     vim.cmd([[highlight ColorColumn guibg=#000000]])
     vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
@@ -451,7 +455,6 @@ vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
 vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 vim.cmd([[highlight ColorColumn guibg=#000000]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "#333333" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#757a61" })
 -- More readable errors to distinguish them from minor warnings
 vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff0000", bold = true })   -- bright red

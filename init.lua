@@ -52,6 +52,7 @@ require("lazy").setup(
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
+        "rebelot/kanagawa.nvim",
         "MunifTanjim/eslint.nvim",
         {"ellisonleao/gruvbox.nvim", priority = 1000 , config = true,},
         {
@@ -384,7 +385,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme kanagawa")
 local current_theme = "dark"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
@@ -398,13 +399,13 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme gruvbox")
+        vim.cmd("colorscheme kanagawa")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
     end
-    vim.cmd([[highlight ColorColumn guibg=#000000]])
+    vim.cmd([[highlight ColorColumn guibg=#43242B]])
     vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
     vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
     vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
@@ -453,7 +454,7 @@ vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
 vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
-vim.cmd([[highlight ColorColumn guibg=#000000]])
+vim.cmd([[highlight ColorColumn guibg=#43242B]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#757a61" })
 -- More readable errors to distinguish them from minor warnings

@@ -52,7 +52,6 @@ require("lazy").setup(
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
-        "folke/tokyonight.nvim",
         "MunifTanjim/eslint.nvim",
         {"ellisonleao/gruvbox.nvim", priority = 1000 , config = true,},
         {
@@ -385,7 +384,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme tokyonight-night")
+vim.cmd("colorscheme gruvbox")
 local current_theme = "dark"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
@@ -393,13 +392,13 @@ vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
 vim.o.background = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
-        vim.cmd("colorscheme tokyonight-day")
+        vim.cmd("colorscheme gruvbox")
         vim.o.background = "light"
         current_theme = "light"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme tokyonight-night")
+        vim.cmd("colorscheme gruvbox")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })

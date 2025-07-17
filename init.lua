@@ -465,6 +465,7 @@ vim.fn.sign_define("DiagnosticSignError", {text = "✘", texthl = "DiagnosticSig
 vim.fn.sign_define("DiagnosticSignWarn",  {text = "▲", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignInfo",  {text = "ℹ", texthl = "DiagnosticSignInfo"})
 vim.fn.sign_define("DiagnosticSignHint",  {text = "➤", texthl = "DiagnosticSignHint"})
+vim.opt.wrap = false
 vim.diagnostic.config({
 	underline = true,
 })

@@ -317,6 +317,11 @@ vim.keymap.set(
 )
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, {desc = 'LSP Diagnostics float'})
 
+require'nvim-treesitter.configs'.setup {
+  highlight = { enable = true },
+  fold = { enable = true },  -- or "fold" might be "indent" or "foldexpr"
+}
+
 require("treesitter-context").setup(
     {
         enable = true, -- Enable this plugin
@@ -414,8 +419,8 @@ vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = 
 
 
 -- folding
-vim.opt.foldenable = false
-vim.opt.foldlevel = 99
+vim.opt.foldenable = true
+vim.opt.foldlevel = 3
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- html

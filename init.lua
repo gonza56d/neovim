@@ -385,7 +385,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme dracula")
+vim.cmd("colorscheme dracula_pro_van_helsing")
 local current_theme = "dark"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
@@ -393,13 +393,13 @@ vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
 vim.o.background = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
-        vim.cmd("colorscheme gruvbox")
+        vim.cmd("colorscheme dracula_pro_alucard")
         vim.o.background = "light"
         current_theme = "light"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme dracula")
+        vim.cmd("colorscheme dracula_pro_van_helsing")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -466,6 +466,7 @@ vim.fn.sign_define("DiagnosticSignError", {text = "✘", texthl = "DiagnosticSig
 vim.fn.sign_define("DiagnosticSignWarn",  {text = "▲", texthl = "DiagnosticSignWarn"})
 vim.fn.sign_define("DiagnosticSignInfo",  {text = "ℹ", texthl = "DiagnosticSignInfo"})
 vim.fn.sign_define("DiagnosticSignHint",  {text = "➤", texthl = "DiagnosticSignHint"})
+
 vim.opt.wrap = false
 vim.diagnostic.config({
 	underline = true,

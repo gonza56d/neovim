@@ -48,6 +48,7 @@ require("lazy").setup(
                 })
             end,
         },
+	"karb94/neoscroll.nvim",
         --'github/copilot.vim',
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
@@ -410,7 +411,7 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
     end
-    vim.cmd([[highlight ColorColumn guibg=#70A99F]])
+    vim.cmd([[highlight ColorColumn guibg=#141414]])
     vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
     vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
     vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
@@ -420,7 +421,7 @@ vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = 
 
 -- folding
 vim.opt.foldenable = true
-vim.opt.foldlevel = 3
+vim.opt.foldlevel = 99
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 -- html
@@ -449,9 +450,18 @@ vim.api.nvim_set_keymap("n", "<leader>v", ":split<CR>", {noremap = true, silent 
 vim.api.nvim_set_keymap("n", "<leader>b", ":vsplit<CR>", {noremap = true, silent = true})
 -- Map leader to open neo tree
 vim.api.nvim_set_keymap("n", "<leader>t", ":Neotree<CR>", {noremap = true, silent = true})
--- Custom scrolling
-vim.keymap.set('n', '<C-d>', '5<C-e>', { noremap = true, silent = true })
-vim.keymap.set('n', '<C-u>', '5<C-y>', { noremap = true, silent = true }) 
+-- Custom scrolling (vanilla)
+--vim.keymap.set('n', '<C-d>', '5<C-e>', { noremap = true, silent = true })
+--vim.keymap.set('n', '<C-u>', '5<C-y>', { noremap = true, silent = true }) 
+---- Custom scrolling (neoscroll)
+local neoscroll = require("neoscroll")
+vim.keymap.set("n", "<C-d>", function()
+    neoscroll.scroll(5, true, 100)  -- (lines, move_cursor, duration_ms)
+end, { silent = true })
+
+vim.keymap.set("n", "<C-u>", function()
+    neoscroll.scroll(-5, true, 100)
+end, { silent = true })
 --
 vim.opt.tabstop = 4 -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
@@ -459,7 +469,7 @@ vim.opt.expandtab = true -- Use spaces instead of tabs
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
 vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
-vim.cmd([[highlight ColorColumn guibg=#70A99F]])
+vim.cmd([[highlight ColorColumn guibg=#141414]])
 vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
 vim.api.nvim_set_hl(0, "Visual", { bg = "#757a61" })
 -- More readable errors to distinguish them from minor warnings

@@ -48,7 +48,27 @@ require("lazy").setup(
                 })
             end,
         },
-	"karb94/neoscroll.nvim",
+        --"karb94/neoscroll.nvim",
+        {
+            "declancm/cinnamon.nvim",
+            config = function()
+                require("cinnamon").setup({
+                    -- Enable all provided keymaps
+                    keymaps = {
+                        basic = true,
+                        extra = true,
+                    },
+                    options = {
+                        mode = "cursor",
+                        delay = 10,
+                    },
+                    step_size = {
+                        vertical = 3,
+                        horizontal = 3,
+                    },
+                })
+            end,
+        },
         --'github/copilot.vim',
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
@@ -454,14 +474,14 @@ vim.api.nvim_set_keymap("n", "<leader>t", ":Neotree<CR>", {noremap = true, silen
 --vim.keymap.set('n', '<C-d>', '5<C-e>', { noremap = true, silent = true })
 --vim.keymap.set('n', '<C-u>', '5<C-y>', { noremap = true, silent = true }) 
 ---- Custom scrolling (neoscroll)
-local neoscroll = require("neoscroll")
-vim.keymap.set("n", "<C-d>", function()
-    neoscroll.scroll(5, true, 100)  -- (lines, move_cursor, duration_ms)
-end, { silent = true })
-
-vim.keymap.set("n", "<C-u>", function()
-    neoscroll.scroll(-5, true, 100)
-end, { silent = true })
+--local neoscroll = require("neoscroll")
+--vim.keymap.set("n", "<C-d>", function()
+    --neoscroll.scroll(5, true, 100)  -- (lines, move_cursor, duration_ms)
+--end, { silent = true })
+--
+--vim.keymap.set("n", "<C-u>", function()
+    --neoscroll.scroll(-5, true, 100)
+--end, { silent = true })
 --
 vim.opt.tabstop = 4 -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent

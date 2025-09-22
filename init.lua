@@ -48,34 +48,12 @@ require("lazy").setup(
                 })
             end,
         },
-        --"karb94/neoscroll.nvim",
-        {
-            "declancm/cinnamon.nvim",
-            config = function()
-                require("cinnamon").setup({
-                    -- Enable all provided keymaps
-                    keymaps = {
-                        basic = true,
-                        extra = true,
-                    },
-                    options = {
-                        mode = "cursor",
-                        delay = 10,
-                    },
-                    step_size = {
-                        vertical = 3,
-                        horizontal = 3,
-                    },
-                })
-            end,
-        },
         --'github/copilot.vim',
         --'Exafunction/codeium.vim',
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         "MunifTanjim/eslint.nvim",
         --{"ellisonleao/gruvbox.nvim", priority = 1000 , config = true,},
-        {"Mofiqul/dracula.nvim", priority = 1000 , config = true,},
         {
             "Yggdroot/indentLine",
             config = function()
@@ -411,10 +389,11 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme dracula_pro_van_helsing")
+vim.cmd("colorscheme vapor")
 local current_theme = "dark"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
+--vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
+vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE", underline = true, sp = "#50FA7B" })
 vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
 vim.o.background = "dark"
 function ToggleTheme()
@@ -425,7 +404,7 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
     else
-        vim.cmd("colorscheme dracula_pro_van_helsing")
+        vim.cmd("colorscheme vapor")
         vim.o.background = "dark"
         current_theme = "dark"
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -471,18 +450,9 @@ vim.api.nvim_set_keymap("n", "<leader>b", ":vsplit<CR>", {noremap = true, silent
 -- Map leader to open neo tree
 vim.api.nvim_set_keymap("n", "<leader>t", ":Neotree<CR>", {noremap = true, silent = true})
 -- Custom scrolling (vanilla)
---vim.keymap.set('n', '<C-d>', '5<C-e>', { noremap = true, silent = true })
---vim.keymap.set('n', '<C-u>', '5<C-y>', { noremap = true, silent = true }) 
+vim.keymap.set('n', '<C-d>', '5<C-e>', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-u>', '5<C-y>', { noremap = true, silent = true }) 
 ---- Custom scrolling (neoscroll)
---local neoscroll = require("neoscroll")
---vim.keymap.set("n", "<C-d>", function()
-    --neoscroll.scroll(5, true, 100)  -- (lines, move_cursor, duration_ms)
---end, { silent = true })
---
---vim.keymap.set("n", "<C-u>", function()
-    --neoscroll.scroll(-5, true, 100)
---end, { silent = true })
---
 vim.opt.tabstop = 4 -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs

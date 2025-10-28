@@ -339,6 +339,7 @@ require("lazy").setup(
         end },
 
         -- Saltos con resaltado y navegación “visible”
+
         --{ "folke/flash.nvim", opts = {} },
 
         -- Indent guides legibles (animadas al mover el cursor)

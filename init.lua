@@ -53,7 +53,12 @@ require("lazy").setup(
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         "MunifTanjim/eslint.nvim",
-        --{"ellisonleao/gruvbox.nvim", priority = 1000 , config = true,},
+        { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
+        { "askfiy/visual_studio_code", priority = 1000},
+        --{ "doums/darcula", priority = 1000},
+        { "xiantang/darcula-dark.nvim", priority = 1000},
+        { "nyoom-engineering/oxocarbon.nvim", priority = 1000},
+        { "jacoborus/tender.vim", priority = 1000},
         {
             "Yggdroot/indentLine",
             config = function()
@@ -281,6 +286,78 @@ require("lazy").setup(
                 })
             end,
         },
+        -- Animaciones simples (abrir/cerrar ventanas, cursor, scroll)
+        --{ "echasnovski/mini.animate", version = false, config = function()
+            --require("mini.animate").setup({
+                --scroll = { enable = true },
+                --cursor = { enable = true },
+                --resize = { enable = true },
+                --open   = { enable = true },
+                --close  = { enable = true },
+            --})
+        --end },
+        -- Smooth scrolling predecible
+        --{ "karb94/neoscroll.nvim", config = function()
+            --require("neoscroll").setup({})
+        --end },
+
+        -- Mensajes/LSP con UI más clara y transiciones
+        { "folke/noice.nvim",
+            dependencies = { "rcarriga/nvim-notify", "MunifTanjim/nui.nvim" },
+            config = function()
+                require("notify").setup({ stages = "fade", background_colour = "#000000" })
+
+                require("noice").setup({
+                    lsp = { progress = { enabled = true } },
+                    presets = { bottom_search = true, command_palette = true },
+                    views = {
+                        cmdline_popup = {
+                            position = { row = "50%", col = "50%" },
+                            size = { min_width = 60, width = "auto", height = "auto" },
+                            border = {
+                                style = "rounded",
+                                padding = { 0, 1 },
+                            },
+                            win_options = {
+                                winhighlight = {
+                                    Normal = "Normal",
+                                    FloatBorder = "NoiceCmdlinePopupBorder",
+                                },
+                            },
+                        },
+                    },
+                })
+            end
+        },
+
+        -- Breadcrumbs en la winbar (sentido de ubicación = menos carga mental)
+        { "Bekaboo/dropbar.nvim", config = function() require("dropbar").setup({}) end },
+
+        -- Barra de desplazamiento con indicadores (diagnósticos, búsquedas, etc.)
+        { "petertriho/nvim-scrollbar", config = function()
+            require("scrollbar").setup()
+        end },
+
+        -- Saltos con resaltado y navegación “visible”
+        --{ "folke/flash.nvim", opts = {} },
+
+        -- Indent guides legibles (animadas al mover el cursor)
+        { "echasnovski/mini.indentscope", version = false, config = function()
+            require("mini.indentscope").setup({ draw = { delay = 20 } })
+        end },
+
+        -- Which-key para descubrir atajos sin pensar tanto
+        { "folke/which-key.nvim", opts = { preset = "helix" } },
+        {
+            "nvim-neo-tree/neo-tree.nvim",
+            branch = "v3.x",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+                "MunifTanjim/nui.nvim",
+                "nvim-tree/nvim-web-devicons", -- optional, but recommended
+            },
+            lazy = false, -- neo-tree will lazily load itself
+        },
     }
 )
 
@@ -324,7 +401,7 @@ require'nvim-treesitter.configs'.setup {
 require("treesitter-context").setup(
     {
         enable = true, -- Enable this plugin
-        max_lines = 5, -- Set to 0 to display context even for very large functions
+        max_lines = 3, -- Set to 0 to display context even for very large functions
         trim_scope = "outer", -- Removes lines that would push content off the window
         mode = "cursor", -- Show context based on cursor location, not just top line
         separator = "_",
@@ -374,7 +451,7 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 })
 
 -- edit line at the center of the screen and highlight
-vim.opt.scrolloff = 5 
+-- vim.opt.scrolloff = 5 
 vim.opt.cursorline = true
 
 -- auto format on write
@@ -389,7 +466,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme vapor_2")
+vim.cmd("colorscheme visual_studio_code")
 local current_theme = "dark"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 --vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
@@ -398,15 +475,17 @@ vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
 vim.o.background = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
-        vim.cmd("colorscheme dracula_pro_alucard")
+        vim.cmd("colorscheme visual_studio_code")
         vim.o.background = "light"
         current_theme = "light"
+        require("visual_studio_code").setup({mode = "light"})
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#f7cda6" })
+        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#bbc5f2" })
     else
-        vim.cmd("colorscheme vapor_2")
+        vim.cmd("colorscheme visual_studio_code")
         vim.o.background = "dark"
         current_theme = "dark"
+        require("visual_studio_code").setup({mode = "dark"})
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
     end
@@ -465,10 +544,33 @@ vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff0000", bold = true })   -- 
 vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ffaa00" })                 -- orange
 vim.api.nvim_set_hl(0, "DiagnosticInfo", { fg = "#00ffff" })                 -- cyan
 vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#aaaaaa" })                 -- gray
-vim.fn.sign_define("DiagnosticSignError", {text = "✘", texthl = "DiagnosticSignError"})
-vim.fn.sign_define("DiagnosticSignWarn",  {text = "▲", texthl = "DiagnosticSignWarn"})
-vim.fn.sign_define("DiagnosticSignInfo",  {text = "ℹ", texthl = "DiagnosticSignInfo"})
-vim.fn.sign_define("DiagnosticSignHint",  {text = "➤", texthl = "DiagnosticSignHint"})
+--vim.fn.sign_define("DiagnosticSignError", {text = "✘", texthl = "DiagnosticSignError"})
+--vim.fn.sign_define("DiagnosticSignWarn",  {text = "▲", texthl = "DiagnosticSignWarn"})
+--vim.fn.sign_define("DiagnosticSignInfo",  {text = "ℹ", texthl = "DiagnosticSignInfo"})
+--vim.fn.sign_define("DiagnosticSignHint",  {text = "➤", texthl = "DiagnosticSignHint"})
+-- New (Correct) Diagnostic Configuration:
+vim.diagnostic.config({
+    update_in_insert = true,
+    virtual_text = {
+        prefix = "●",
+        severity = {
+            min = vim.diagnostic.severity.ERROR
+        },
+    },
+    signs = {
+        -- This 'text' table directly defines the icons for each severity.
+        text = {
+            [vim.diagnostic.severity.ERROR] = "✘", -- Your Error icon
+            [vim.diagnostic.severity.WARN]  = "▲", -- Your Warning icon
+            [vim.diagnostic.severity.INFO]  = "ℹ", -- Your Info icon
+            [vim.diagnostic.severity.HINT]  = "➤", -- Your Hint icon
+        },
+        -- The 'texthl' is handled automatically by Neovim's diagnostic system,
+        -- so you don't need to explicitly set it here!
+    },
+    underline = true,
+    severity_sort = true,
+})
 
 vim.opt.wrap = false
 vim.diagnostic.config({
@@ -502,4 +604,25 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", {
 	underline = true,
 	sp = "#ffaa00", -- Orange/yellow
 })
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#2b244d" })
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#020b17" })
+if vim.g.neovide then
+	-- Animaciones suaves
+	vim.g.neovide_scroll_animation_length = 0.15
+	vim.g.neovide_cursor_vfx_mode = "railgun"
+	vim.g.neovide_cursor_trail_length = 0.05
+
+	-- Comodidades de GUI
+	vim.g.neovide_hide_mouse_when_typing = true
+	vim.g.neovide_remember_window_size = true
+	vim.g.neovide_refresh_rate = 120   -- si tu monitor lo soporta
+	vim.g.neovide_confirm_quit = true  -- diálogo al cerrar si hay buffers sin guardar
+
+	-- macOS: teclas y clipboard
+	vim.g.neovide_input_macos_option_key_is_meta = 'only_left'
+	-- Transparencia (opcional)
+	-- vim.g.neovide_transparency = 0.95
+end
+-- Disables the check and initialization of the legacy Python 2 host
+vim.g.loaded_python_provider = 0
+-- Disables the check and initialization of the legacy Python 3 host
+vim.g.loaded_python3_provider = 0

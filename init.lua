@@ -82,6 +82,41 @@ require("lazy").setup(
         },
         'mhinz/vim-signify',
         {
+            'lewis6991/hover.nvim',
+            config = function()
+                require('hover').setup(
+                    {
+                        --- List of modules names to load as providers.
+                        --- @type (string|Hover.Config.Provider)[]
+                        providers = {
+                            'hover.providers.diagnostic',
+                            'hover.providers.lsp',
+                            'hover.providers.dap',
+                            'hover.providers.man',
+                            'hover.providers.dictionary',
+                            -- Optional, disabled by default:
+                            -- 'hover.providers.gh',
+                            -- 'hover.providers.gh_user',
+                            -- 'hover.providers.jira',
+                            -- 'hover.providers.fold_preview',
+                            -- 'hover.providers.highlight',
+                        },
+                        preview_opts = {
+                            border = 'single',
+                        },
+                        -- Whether the contents of a currently open hover window should be moved
+                        -- to a :h preview-window when pressing the hover keymap.
+                        preview_window = false,
+                        title = true,
+                        mouse_providers = {
+                            'hover.providers.lsp',
+                        },
+                        mouse_delay = 1000,
+                    }
+                )
+	    end
+        },
+        {
             "nvim-lualine/lualine.nvim",
             dependencies = {"nvim-tree/nvim-web-devicons"},
             config = function()
@@ -385,6 +420,10 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
 vim.api.nvim_set_hl(0, "PmenuBorder", {fg = "white"})
 
+-- Hover
+vim.keymap.set("n", "K",  require("hover").hover)
+--vim.keymap.set("n", "GK", require("hover").hover_select)
+
 -- Run test cases
 vim.keymap.set('n', '<leader>tc', ':lua require("neotest").run.run()<CR>', {desc = 'Tests run current'})
 vim.keymap.set(
@@ -402,7 +441,7 @@ require'nvim-treesitter.configs'.setup {
 require("treesitter-context").setup(
     {
         enable = true, -- Enable this plugin
-        max_lines = 3, -- Set to 0 to display context even for very large functions
+        max_lines = 5, -- Set to 0 to display context even for very large functions
         trim_scope = "outer", -- Removes lines that would push content off the window
         mode = "cursor", -- Show context based on cursor location, not just top line
         separator = "_",
@@ -467,7 +506,11 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme visual_studio_code")
+vim.cmd("colorscheme gruvbox")
+--vim.cmd("colorscheme oxocarbon")
+--vim.cmd("colorscheme tender")
+--vim.cmd("colorscheme visual_studio_code")
+--vim.cmd("colorscheme dracula_pro_van_helsing")
 local current_theme = "dark"
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 --vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
@@ -483,7 +526,8 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#bbc5f2" })
     else
-        vim.cmd("colorscheme visual_studio_code")
+        vim.cmd("colorscheme gruvbox")
+        --vim.cmd("colorscheme dracula_pro_van_helsing")
         vim.o.background = "dark"
         current_theme = "dark"
         require("visual_studio_code").setup({mode = "dark"})

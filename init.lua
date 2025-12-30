@@ -494,6 +494,9 @@ vim.api.nvim_create_autocmd("CursorMoved", {
 -- vim.opt.scrolloff = 5 
 vim.opt.cursorline = true
 
+-- display quotes in jsons
+vim.g.vim_json_conceal = 0
+
 -- auto format on write
 vim.api.nvim_create_autocmd(
     "BufWritePre",

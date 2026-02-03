@@ -53,6 +53,8 @@ require("lazy").setup(
         "nvim-treesitter/nvim-treesitter-context",
         "RRethy/vim-illuminate",
         "MunifTanjim/eslint.nvim",
+        { 'projekt0n/github-nvim-theme', name = 'github-theme' },
+        { "projekt0n/github-nvim-theme", priority = 1000 , config = true, opts = ...},
         { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
         { "askfiy/visual_studio_code", priority = 1000},
         --{ "doums/darcula", priority = 1000},
@@ -509,7 +511,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme gruvbox")
+vim.cmd("colorscheme github_dark_dimmed")
 --vim.cmd("colorscheme oxocarbon")
 --vim.cmd("colorscheme tender")
 --vim.cmd("colorscheme visual_studio_code")
@@ -522,18 +524,18 @@ vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
 vim.o.background = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
-        vim.cmd("colorscheme visual_studio_code")
+        vim.cmd("colorscheme github_light")
         vim.o.background = "light"
         current_theme = "light"
-        require("visual_studio_code").setup({mode = "light"})
+        --require("visual_studio_code").setup({mode = "light"})
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#bbc5f2" })
     else
-        vim.cmd("colorscheme gruvbox")
+        vim.cmd("colorscheme github_dark_dimmed")
         --vim.cmd("colorscheme dracula_pro_van_helsing")
         vim.o.background = "dark"
         current_theme = "dark"
-        require("visual_studio_code").setup({mode = "dark"})
+        --require("visual_studio_code").setup({mode = "dark"})
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
     end
@@ -652,7 +654,7 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", {
 	underline = true,
 	sp = "#ffaa00", -- Orange/yellow
 })
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#020b17" })
+vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#000000" })
 if vim.g.neovide then
 	-- Animaciones suaves
 	vim.g.neovide_scroll_animation_length = 0.15

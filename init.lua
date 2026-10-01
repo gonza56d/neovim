@@ -511,16 +511,18 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme gruvbox")
+vim.g.argonaut_transparent = true -- let Ghostty's background show through
+vim.cmd("colorscheme argonaut")
+--vim.cmd("colorscheme gruvbox")
 --vim.cmd("colorscheme oxocarbon")
 --vim.cmd("colorscheme tender")
 --vim.cmd("colorscheme visual_studio_code")
 --vim.cmd("colorscheme dracula_pro_van_helsing")
 local current_theme = "dark"
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
 --vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1E1E1E" })
-vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE", underline = true, sp = "#50FA7B" })
-vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
+--vim.api.nvim_set_hl(0, "CursorLine", { bg = "NONE", underline = true, sp = "#50FA7B" })
+--vim.api.nvim_set_hl(0, "Cursor", { bg = "#000000", fg = "#FFFFFF" })
 vim.o.background = "dark"
 function ToggleTheme()
     if current_theme == "dark" then
@@ -530,18 +532,19 @@ function ToggleTheme()
         --require("visual_studio_code").setup({mode = "light"})
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#bbc5f2" })
+        vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
+        vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
+        vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
     else
-        vim.cmd("colorscheme gruvbox")
+        vim.cmd("colorscheme argonaut")
+        --vim.cmd("colorscheme gruvbox")
         --vim.cmd("colorscheme dracula_pro_van_helsing")
         vim.o.background = "dark"
         current_theme = "dark"
         --require("visual_studio_code").setup({mode = "dark"})
-        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-        vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
+        --vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+        --vim.api.nvim_set_hl(0, "CursorLine", { bg = "#595959" })
     end
-    vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
-    vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
-    vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
 end
 vim.api.nvim_set_keymap("n", "<leader>tt", ":lua ToggleTheme()<CR>", {noremap = true, silent = true})
 
@@ -584,11 +587,11 @@ vim.keymap.set('n', '<C-u>', '5<C-y>', { noremap = true, silent = true })
 vim.opt.tabstop = 4 -- Number of spaces a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Number of spaces to use for each step of (auto)indent
 vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
-vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
-vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "Visual", { bg = "#757a61" })
+--vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+--vim.api.nvim_set_hl(0, "TreesitterContext", {bg = "none"})
+--vim.api.nvim_set_hl(0, "Folded", { fg = "#009696", bg = "NONE", italic = true })
+--vim.api.nvim_set_hl(0, "SignColumn", { bg = "#000000" })
+--vim.api.nvim_set_hl(0, "Visual", { bg = "#757a61" })
 -- More readable errors to distinguish them from minor warnings
 vim.api.nvim_set_hl(0, "DiagnosticError", { fg = "#ff0000", bold = true })   -- bright red
 vim.api.nvim_set_hl(0, "DiagnosticWarn", { fg = "#ffaa00" })                 -- orange
@@ -654,7 +657,7 @@ vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn", {
 	underline = true,
 	sp = "#ffaa00", -- Orange/yellow
 })
-vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#000000" })
+--vim.api.nvim_set_hl(0, "ColorColumn", { bg = "#000000" })
 if vim.g.neovide then
 	-- Animaciones suaves
 	vim.g.neovide_scroll_animation_length = 0.15

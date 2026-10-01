@@ -54,8 +54,8 @@ require("lazy").setup(
         "RRethy/vim-illuminate",
         "MunifTanjim/eslint.nvim",
         { 'projekt0n/github-nvim-theme', name = 'github-theme' },
-        { "projekt0n/github-nvim-theme", priority = 1000 , config = true, opts = ...},
         { "ellisonleao/gruvbox.nvim", priority = 1000 , config = true, opts = ...},
+        { "scottmckendry/cyberdream.nvim", priority = 1000},
         { "askfiy/visual_studio_code", priority = 1000},
         --{ "doums/darcula", priority = 1000},
         { "xiantang/darcula-dark.nvim", priority = 1000},
@@ -511,7 +511,7 @@ vim.api.nvim_create_autocmd(
 )
 
 -- toggle between light and dark themes
-vim.cmd("colorscheme github_dark_dimmed")
+vim.cmd("colorscheme gruvbox")
 --vim.cmd("colorscheme oxocarbon")
 --vim.cmd("colorscheme tender")
 --vim.cmd("colorscheme visual_studio_code")
@@ -531,7 +531,7 @@ function ToggleTheme()
         vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
         vim.api.nvim_set_hl(0, "CursorLine", { bg = "#bbc5f2" })
     else
-        vim.cmd("colorscheme github_dark_dimmed")
+        vim.cmd("colorscheme gruvbox")
         --vim.cmd("colorscheme dracula_pro_van_helsing")
         vim.o.background = "dark"
         current_theme = "dark"
